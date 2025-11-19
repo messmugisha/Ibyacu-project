@@ -1,0 +1,332 @@
+    /* Navbar Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        scroll-behavior: smooth;
+    }
+    nav {
+        background-color: #333;
+        color: white;
+        padding: 10px 20px;
+    }
+
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .nav-elements {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .nav a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 15px;
+        transition: background-color 0.3s;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .nav a:hover {
+        background-color: #555;
+    }
+    .nav ul {
+        list-style: none;
+        display: flex;
+        gap: 15px;
+    }
+
+    .nav ul li {
+        display: inline;
+    }
+    .nav ul li a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 15px;
+        transition: background-color 0.3s;
+    }
+
+    /* Search Bar Styles */
+    .search-container {
+        display: flex;
+        align-items: center;
+    }
+    
+    .search-input {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 4px 0 0 4px;
+        outline: none;
+        width: 180px;
+        transition: width 0.3s;
+    }
+    
+    .search-input:focus {
+        width: 220px;
+    }
+    
+    .search-btn {
+        padding: 8px 12px;
+        background-color: #555;
+        color: white;
+        border: none;
+        border-radius: 0 4px 4px 0;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    .search-btn:hover {
+        background-color: #777;
+    }
+
+    .hamburger {
+        display: none;
+        cursor: pointer;
+    }
+    .hamburger i {
+        font-size: 24px;
+        color: white;
+    }
+    .hamburger:hover i {
+        color: #ddd;
+        transition: color 0.3s;
+    }
+
+    @media screen and (max-width: 768px) {
+        .nav-elements {
+            position: fixed;
+            top: 50px;
+            right: 0;
+            height: 55%;
+            width: 220px;
+            background-color: #333;
+            padding: 60px 20px 20px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+
+            /* Slide effect */
+            transform: translateX(120%);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+
+        .nav-elements.active {
+            transform: translateX(0);
+        }
+
+        .nav ul {
+            flex-direction: column;
+            width: 100%;
+            gap: 5px;
+        }
+
+        .nav ul li {
+            text-align: left;
+            padding: 2px 0;
+            width: 100%;
+        }
+
+        .search-container {
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+        }
+
+        .search-input:focus {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: block;
+        }
+    }
+
+    /* HERO*/
+
+
+.main-content {
+    padding: 80px ;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.head {
+    font-size: 4.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 24px;
+    letter-spacing: -1px;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.subhead {
+    font-size: 1.35rem;
+    color: #bbbbbb;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+    opacity: 0.95;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 80px;
+}
+
+.btn1, .btn2 {
+    display: inline-block;
+    padding: 16px 42px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.35s ease;
+    min-width: 200px;
+}
+
+.btn1 {
+    background-color: #414040;
+    color: #ffffff;
+}
+
+.btn1:hover {
+    background-color: #222121;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.btn2 {
+    background-color: #414040;
+    color: #ffffff;
+}
+
+.btn2:hover {
+   background-color: #222121;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    color: #ffffff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .head {
+        font-size: 3.5rem;
+    }
+    
+    .subhead {
+        font-size: 1.2rem;
+    }
+    
+    .btn {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn1, .btn2 {
+        width: 80%;
+        max-width: 300px;
+    }
+    
+    .products h2 {
+        font-size: 2.5rem;
+    }
+}
+
+/*contact*/
+
+ .contact .btn {
+            display: inline-block;
+            padding: 15px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
+
+        .contact .btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        .contact-detail a {
+            color: var(--dark-heading);
+            text-decoration: none;
+        }
+
+.contact {
+    padding: 80px 0;
+}
+
+.contact-container {
+    display: flex;
+    gap: 50px;
+}
+
+ @media (max-width: 768px) {
+        .contact-container{
+            flex-direction: column;
+        }
+                        
+}
+
+
+.contact-info {
+    flex: 1;
+}
+
+.contact-info h2 {
+    font-size: 2.2rem;
+    color: var(--dark-color);
+    margin-bottom: 30px;
+}
+
+.contact-detail {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.contact-icon {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-right: 15px;
+    width: 40px;
+}
+
+.contact-form {
+    flex: 1;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    height: 150px;
+}

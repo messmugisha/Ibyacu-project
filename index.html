@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ibyacu Marketplace</title>
+        <link rel="stylesheet" href="design/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="brand"><a href="index.html">Ibyacu</a></div>
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <div class="lang-switch">
+                    <button data-lang="en" class="lang active">EN</button>
+                    <button data-lang="fr" class="lang">FR</button>
+                </div>
+                <button id="cartBtn" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCount" class="cart-count">0</span>
+                </button>
+                <button id="authBtn" class="auth-btn">Login / Register</button>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="hero-inner">
+                    <h1 data-i18n="heroTitle">Handmade arts & crafts — connect with artisans</h1>
+                    <p data-i18n="heroDesc">Buy directly from creators. Secure payments. Local delivery options.</p>
+                    <div class="hero-actions">
+                        <a href="products.html" class="btn primary" data-i18n="shopNow">Shop Now</a>
+                        <a href="dashboard.html" class="btn" data-i18n="sellNow">Sell Your Work</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="categories">
+                <h2 data-i18n="categories">Shop by Category</h2>
+                <div class="category-list">
+                    <button class="category" data-category="Textiles">Textiles</button>
+                    <button class="category" data-category="Ceramics">Ceramics</button>
+                    <button class="category" data-category="Jewelry">Jewelry</button>
+                    <button class="category" data-category="Woodwork">Woodwork</button>
+                </div>
+            </section>
+
+            <section class="products" id="products">
+                <h2 data-i18n="featured">Featured Products</h2>
+                <div id="productGrid" class="product-grid"></div>
+            </section>
+
+            <section id="contact" class="contact">
+                <h2 data-i18n="contact">Contact</h2>
+                <p>Email: <a href="mailto:info@ibyacu.example">info@ibyacu.example</a></p>
+            </section>
+        </main>
+
+        <aside id="cartPanel" class="cart-panel" aria-hidden="true">
+            <header class="cart-header">
+                <h3 data-i18n="yourCart">Your Cart</h3>
+                <button id="closeCart" aria-label="Close cart">✕</button>
+            </header>
+            <div id="cartItems" class="cart-items"></div>
+            <div class="cart-footer">
+                <div class="cart-total">Total: <span id="cartTotal">0.00</span> USD</div>
+                <button id="checkoutBtn" class="btn primary" data-i18n="checkout">Checkout</button>
+            </div>
+        </aside>
+
+        <div id="authModal" class="modal" aria-hidden="true">
+            <div class="modal-content">
+                <button class="modal-close">✕</button>
+                <div class="auth-forms">
+                    <form id="loginForm" class="auth-form">
+                        <h3 data-i18n="login">Login</h3>
+                        <input name="email" placeholder="Email" required>
+                        <input name="password" type="password" placeholder="Password" required>
+                        <button type="submit" class="btn primary" data-i18n="loginBtn">Login</button>
+                    </form>
+                    <form id="registerForm" class="auth-form hidden">
+                        <h3 data-i18n="register">Register</h3>
+                        <input name="name" placeholder="Full name" required>
+                        <input name="email" placeholder="Email" required>
+                        <input name="password" type="password" placeholder="Password" required>
+                        <label><input type="checkbox" name="seller"> I'm a seller</label>
+                        <button type="submit" class="btn primary" data-i18n="registerBtn">Register</button>
+                    </form>
+                    <div class="auth-switch">
+                        <button id="showLogin" class="btn">Login</button>
+                        <button id="showRegister" class="btn">Register</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="behaviour/script.js"></script>
+    </body>
+</html>

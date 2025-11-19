@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Products - Ibyacu</title>
+    <link rel="stylesheet" href="design/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand"><a href="index.html">Ibyacu</a></div>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="dashboard.html">Dashboard</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switch">
+          <button data-lang="en" class="lang active">EN</button>
+          <button data-lang="fr" class="lang">FR</button>
+        </div>
+        <button id="cartBtn" class="cart-btn">
+          <i class="fas fa-shopping-cart"></i>
+          <span id="cartCount" class="cart-count">0</span>
+        </button>
+        <button id="authBtn" class="auth-btn">Login / Register</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="products" style="padding:24px 0;">
+        <div class="product-grid" id="productsList"></div>
+      </section>
+    </main>
+
+    <aside id="cartPanel" class="cart-panel" aria-hidden="true">
+      <header class="cart-header">
+        <h3>Your Cart</h3>
+        <button id="closeCart" aria-label="Close cart">✕</button>
+      </header>
+      <div id="cartItems" class="cart-items"></div>
+      <div class="cart-footer">
+        <div class="cart-total">Total: <span id="cartTotal">0.00</span> USD</div>
+        <button id="checkoutBtn" class="btn primary">Checkout</button>
+      </div>
+    </aside>
+
+    <div id="authModal" class="modal" aria-hidden="true">
+      <div class="modal-content">
+        <button class="modal-close">✕</button>
+        <div class="auth-forms">
+          <form id="loginForm" class="auth-form">
+            <h3>Login</h3>
+            <input name="email" placeholder="Email" required>
+            <input name="password" type="password" placeholder="Password" required>
+            <button type="submit" class="btn primary">Login</button>
+          </form>
+          <form id="registerForm" class="auth-form hidden">
+            <h3>Register</h3>
+            <input name="name" placeholder="Full name" required>
+            <input name="email" placeholder="Email" required>
+            <input name="password" type="password" placeholder="Password" required>
+            <label><input type="checkbox" name="seller"> I'm a seller</label>
+            <button type="submit" class="btn primary">Register</button>
+          </form>
+          <div class="auth-switch">
+            <button id="showLogin" class="btn">Login</button>
+            <button id="showRegister" class="btn">Register</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="behaviour/script.js"></script>
+  </body>
+</html>
