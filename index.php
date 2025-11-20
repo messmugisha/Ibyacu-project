@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtisanCraft - Handmade Arts & Crafts Marketplace</title>
+    <meta name="description" content="Connect with artisans and discover unique handmade arts and crafts. Buy directly from creators worldwide.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#8B4513",
+                        secondary: "#D2691E",
+                        accent: "#F4A460",
+                        dark: "#2C1810",
+                        light: "#FAF3E0"
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-light font-body">
+    <!-- Header with Navigation -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <!-- Top Bar with Language & Cart -->
+            <div class="flex justify-between items-center py-2 border-b">
+                <div class="flex items-center space-x-4">
+                    <!-- Language Switcher -->
+                    <div class="relative group">
+                        <button class="flex items-center space-x-1 text-gray-600 hover:text-primary transition-colors">
+                            <i class="fas fa-globe"></i>
+                            <span>Kiny</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div class="absolute hidden group-hover:block bg-white shadow-lg rounded-lg mt-2 w-32">
+                            <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors">Kiny</button>
+                            <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors">Eng</button>
+                            <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors">Fr</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- Cart Viewer -->
+                    <button id="cartButton" class="relative flex items-center space-x-1 text-gray-600 hover:text-primary transition-colors">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span class="cart-count bg-primary text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">0</span>
+                    </button>
+                    
+                    <!-- Auth Buttons -->
+                    <div class="flex items-center space-x-2">
+                        <button id="loginBtn" class="px-4 py-2 text-gray-600 hover:text-primary transition-colors">Injira</button>
+                        <button id="registerBtn" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">Iyandikishe</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Navigation -->
+            <nav class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-display font-sans font-bold text-dark">Ibyacu </h1>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="nav-link text-gray-700 hover:text-primary transition-colors font-medium">Ahabanza</a>
+                    <a href="#" class="nav-link text-gray-700 hover:text-primary transition-colors font-medium">Ibicuruzwa</a>
+                    <div class="relative group">
+                        <button class="flex items-center space-x-1 text-gray-700 hover:text-primary transition-colors font-medium">
+                            Ibyiciro
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div class="absolute hidden group-hover:block bg-white shadow-lg rounded-lg mt-2 w-48">
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors">Ibishushanyo</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors">Ibibumbano</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors">Imyambaro</a>
+                        </div>
+                    </div>
+                    <a href="#" class="nav-link text-gray-700 hover:text-primary transition-colors font-medium">Aderesi</a>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="hidden md:flex items-center">
+                    <div class="relative">
+                        <input type="text" placeholder="Shakisha ibihangano..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors w-64">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-700">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-r from-primary to-secondary text-white py-20">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-4xl md:text-6xl font-display font-bold mb-6">Murakaza neza!</h2>
+                <p class="text-xl mb-8 max-w-2xl mx-auto">Ibyacu ni urubuga rw'ubucuruzi bw'ibihangano by'abahanzi nyarwanda. Turi hano kugirango tugufashe kubona ibihangano byiza kandi by'umwimerere.</p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <button class="bg-accent text-dark px-8 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors">Gura akakanya</button>
+                    <button class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-dark transition-colors">Iyandikishe Nkumuhanzi</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products Section -->
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <h3 class="text-3xl font-display font-bold text-center text-dark mb-12">Featured Handmade Products</h3>
+                <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Products will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h3 class="text-3xl font-display font-bold text-center text-dark mb-12">SHAKISHA UGENDEYE KU IBYICIRO</h3>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+                    <div class="category-card text-center p-6 rounded-lg bg-light hover:bg-accent transition-colors cursor-pointer">
+                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-vase text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-semibold text-dark">Ibibumbano</h4>
+                    </div>
+                    <div class="category-card text-center p-6 rounded-lg bg-light hover:bg-accent transition-colors cursor-pointer">
+                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-tshirt text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-semibold text-dark">Imyambaro</h4>
+                    </div>
+                    <div class="category-card text-center p-6 rounded-lg bg-light hover:bg-accent transition-colors cursor-pointer">
+                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-gem text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-semibold text-dark">Imitako</h4>
+                    </div>
+                    <div class="category-card text-center p-6 rounded-lg bg-light hover:bg-accent transition-colors cursor-pointer">
+                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-hammer text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-semibold text-dark">Ibikoresho by'ibiti</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-xl font-display font-bold mb-4">Ibyacu</h4>
+                    <p class="text-gray-300">Ibyacu ni urubuga rw'ubucuruzi bw'ibihangano by'abahanzi nyarwanda. Turi hano kugirango tugufashe kubona ibihangano byiza kandi by'umwimerere.</p>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-4">Links Zihuse</h5>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Ahabanza</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Aderesi</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Ibyiciro</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Ibicuruzwa</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-4">Kubahanzi</h5>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Gurisha igihangano</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Seller Dashboard</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-4">Stay Connected</h5>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors"><i class="fab fa-facebook text-xl"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors"><i class="fab fa-pinterest text-xl"></i></a>
+                    </div>
+                    <p class="text-gray-300">Twandikire Hano</p>
+                    <div class="flex mt-2">
+                        <input type="email" placeholder="Imeri yawe cyangwa amazina yawe" class="px-3 py-2 bg-gray-700 text-white rounded-l-lg focus:outline-none w-full">
+                        <button class="bg-primary px-4 py-2 rounded-r-lg hover:bg-secondary transition-colors">Ohereza!</button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2025 Ibyacu. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg max-w-md w-full p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-display font-bold text-dark">Login</h3>
+                <button class="close-modal text-gray-500 hover:text-dark">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form id="loginForm">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Imeyiri</label>
+                        <input type="email" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Ijambo ry'ibanga</label>
+                        <input type="password" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                    </div>
+                    <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-secondary transition-colors font-semibold">Injira</button>
+                </div>
+            </form>
+            <div class="text-center mt-4">
+                <p class="text-gray-600">Nta konti ufite? <button class="text-primary hover:underline switch-to-register">Iyandikishe hano</button></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+<div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-lg max-w-md w-full p-6 max-h-[80vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-2xl font-display font-bold text-dark">Iyandikishe</h3>
+            <button class="close-modal text-gray-500 hover:text-dark">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <form id="registerForm" action="logic.php" method="post">
+            <div class="space-y-4">
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Amazina Yawe</label>
+                        <input type="text" required name="username"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Imeyiri</label>
+                        <input type="email" name="email"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Aho utuye</label>
+                    <input type="text" required name="location"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Telephone</label>
+                    <input type="text" required name="contacts"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Ibikwerekeyeho</label>
+                    <input type="text" required name="bio"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                </div>
+
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Type</label>
+                    <input type="text" required name="type"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                </div>
+
+
+                <div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Ijambobanga</label>
+                        <input type="text" required name="password"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                    </div>
+
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Emeza Ijambo Banga</label>
+                    <input type="text" required name="confirm_password"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                </div>
+
+                <button type="submit"
+                    class="w-full bg-primary text-white py-3 rounded-lg hover:bg-secondary transition-colors font-semibold">
+                    Create Account
+                </button>
+
+            </div>
+        </form>
+
+        <div class="text-center mt-4">
+            <p class="text-gray-600">
+                Ufite konti?
+                <button name="btn" class="text-primary hover:underline switch-to-login">Injira hano</button>
+            </p>
+        </div> 
+    </div>
+</div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg max-w-2xl w-full p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-display font-bold text-dark">Your Cart</h3>
+                <button class="close-modal text-gray-500 hover:text-dark">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div id="cartItems" class="space-y-4 max-h-96 overflow-y-auto">
+                <!-- Cart items will be dynamically loaded here -->
+            </div>
+            <div class="border-t pt-4 mt-4">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg font-semibold">Total:</span>
+                    <span class="text-lg font-semibold" id="cartTotal">$0.00</span>
+                </div>
+                <button class="w-full bg-primary text-white py-3 rounded-lg hover:bg-secondary transition-colors font-semibold">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Define data at the beginning
+        const products = [
+            {
+                "id": 1,
+                "name": "Handmade Ceramic Vase",
+                "price": 45.99,
+                "category": "Pottery",
+                "artisan": "Maria's Pottery",
+                "rating": 4.8,
+                "image": "https://picsum.photos/300/300?random=1",
+                "description": "Beautiful hand-thrown ceramic vase with unique glaze patterns."
+            },
+            {
+                "id": 2,
+                "name": "Woven Wool Scarf",
+                "price": 32.50,
+                "category": "Textiles",
+                "artisan": "Weaver's Delight",
+                "rating": 4.6,
+                "image": "https://picsum.photos/300/300?random=2",
+                "description": "Warm wool scarf handwoven using traditional techniques."
+            },
+            {
+                "id": 3,
+                "name": "Silver Pendant Necklace",
+                "price": 89.99,
+                "category": "Jewelry",
+                "artisan": "Silver Crafts",
+                "rating": 4.9,
+                "image": "https://picsum.photos/300/300?random=3",
+                "description": "Elegant sterling silver pendant with intricate detailing."
+            },
+            {
+                "id": 4,
+                "name": "Wooden Cutting Board",
+                "price": 55.00,
+                "category": "Woodwork",
+                "artisan": "Wood Artistry",
+                "rating": 4.7,
+                "image": "https://picsum.photos/300/300?random=4",
+                "description": "Handcrafted walnut cutting board with natural wood grain."
+            },
+            {
+                "id": 5,
+                "name": "Abstract Canvas Painting",
+                "price": 120.00,
+                "category": "Art",
+                "artisan": "Modern Art Studio",
+                "rating": 4.5,
+                "image": "https://picsum.photos/300/300?random=5",
+                "description": "Vibrant abstract painting on high-quality canvas."
+            },
+            {
+                "id": 6,
+                "name": "Handmade Leather Wallet",
+                "price": 42.75,
+                "category": "Leatherwork",
+                "artisan": "Leather Crafts",
+                "rating": 4.8,
+                "image": "https://picsum.photos/300/300?random=6",
+                "description": "Durable leather wallet with multiple card slots."
+            },
+            {
+                "id": 7,
+                "name": "Ceramic Coffee Mug Set",
+                "price": 38.50,
+                "category": "Pottery",
+                "artisan": "Clay Creations",
+                "rating": 4.6,
+                "image": "https://picsum.photos/300/300?random=7",
+                "description": "Set of 4 unique handcrafted ceramic coffee mugs."
+            },
+            {
+                "id": 8,
+                "name": "Hand-knitted Sweater",
+                "price": 75.00,
+                "category": "Textiles",
+                "artisan": "Knit Wonders",
+                "rating": 4.9,
+                "image": "https://picsum.photos/300/300?random=8",
+                "description": "Cozy wool sweater with traditional knitting patterns."
+            }
+        ];
+
+        const cart = [];
+        let currentLanguage = "kiny";
+
+        // Function to generate product cards
+        function generateProductCard(product) {
+            return `
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover" loading="lazy">
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-semibold text-dark text-lg">${product.name}</h4>
+                            <span class="text-primary font-bold">$${product.price}</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-2">by ${product.artisan}</p>
+                        <div class="flex items-center mb-3">
+                            <div class="flex text-yellow-400">
+                                ${'<i class="fas fa-star"></i>'.repeat(Math.floor(product.rating))}
+                                ${product.rating % 1 !== 0 ? '<i class="fas fa-star-half-alt"></i>' : ''}
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">${product.rating}</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="add-to-cart flex-1 bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors" data-id="${product.id}">
+                                Add to Cart
+                            </button>
+                            <button class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors">
+                                <i class="far fa-heart text-gray-600"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to update cart display
+        function updateCartDisplay() {
+            const cartCount = document.querySelector('.cart-count');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-center text-gray-500 py-8">Your cart is empty</p>';
+                cartTotal.textContent = "$0.00";
+                return;
+            }
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div class="flex items-center space-x-4 border-b pb-4">
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded">
+                    <div class="flex-1">
+                        <h5 class="font-semibold">${item.name}</h5>
+                        <p class="text-gray-600 text-sm">$${item.price} x ${item.quantity}</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="decrease-quantity w-8 h-8 bg-gray-100 rounded flex items-center justify-center" data-id="${item.id}">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="increase-quantity w-8 h-8 bg-gray-100 rounded flex items-center justify-center" data-id="${item.id}">+</button>
+                        <button class="remove-item text-red-500 hover:text-red-700 ml-2" data-id="${item.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `$${total.toFixed(2)}`;
+        }
+
+        // Function to handle modal interactions
+        function setupModals() {
+            const modals = {
+                login: document.getElementById('loginModal'),
+                register: document.getElementById('registerModal'),
+                cart: document.getElementById('cartModal')
+            };
+
+            const openers = {
+                login: document.getElementById('loginBtn'),
+                register: document.getElementById('registerBtn'),
+                cart: document.getElementById('cartButton')
+            };
+
+            const closers = document.querySelectorAll('.close-modal');
+            const switchers = {
+                toRegister: document.querySelector('.switch-to-register'),
+                toLogin: document.querySelector('.switch-to-login')
+            };
+
+            // Open modal functions
+            Object.keys(openers).forEach(modalType => {
+                openers[modalType].addEventListener('click', (e) => {
+                    e.preventDefault();
+                    Object.values(modals).forEach(modal => modal.classList.add('hidden'));
+                    modals[modalType].classList.remove('hidden');
+                    modals[modalType].classList.add('flex');
+                });
+            });
+
+            // Close modal functions
+            closers.forEach(closer => {
+                closer.addEventListener('click', () => {
+                    Object.values(modals).forEach(modal => {
+                        modal.classList.add('hidden');
+                        modal.classList.remove('flex');
+                    });
+                });
+            });
+
+            // Modal switching
+            switchers.toRegister.addEventListener('click', () => {
+                modals.login.classList.add('hidden');
+                modals.login.classList.remove('flex');
+                modals.register.classList.remove('hidden');
+                modals.register.classList.add('flex');
+            });
+
+            switchers.toLogin.addEventListener('click', () => {
+                modals.register.classList.add('hidden');
+                modals.register.classList.remove('flex');
+                modals.login.classList.remove('hidden');
+                modals.login.classList.add('flex');
+            });
+
+            // Close modal when clicking outside
+            Object.values(modals).forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.add('hidden');
+                        modal.classList.remove('flex');
+                    }
+                });
+            });
+        }
+
+        // Function to handle cart interactions
+        function setupCartInteractions() {
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('add-to-cart')) {
+                    const productId = parseInt(e.target.dataset.id);
+                    const product = products.find(p => p.id === productId);
+                    const existingItem = cart.find(item => item.id === productId);
+                    
+                    if (existingItem) {
+                        existingItem.quantity++;
+                    } else {
+                        cart.push({
+                            ...product,
+                            quantity: 1
+                        });
+                    }
+                    
+                    updateCartDisplay();
+                }
+                
+                if (e.target.classList.contains('increase-quantity')) {
+                    const productId = parseInt(e.target.dataset.id);
+                    const item = cart.find(item => item.id === productId);
+                    if (item) item.quantity++;
+                    updateCartDisplay();
+                }
+                
+                if (e.target.classList.contains('decrease-quantity')) {
+                    const productId = parseInt(e.target.dataset.id);
+                    const item = cart.find(item => item.id === productId);
+                    if (item && item.quantity > 1) {
+                        item.quantity--;
+                    } else {
+                        cart.splice(cart.findIndex(item => item.id === productId), 1);
+                    }
+                    updateCartDisplay();
+                }
+                
+                if (e.target.classList.contains('remove-item')) {
+                    const productId = parseInt(e.target.dataset.id);
+                    cart.splice(cart.findIndex(item => item.id === productId), 1);
+                    updateCartDisplay();
+                }
+            });
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load products
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = products.map(product => generateProductCard(product)).join('');
+            
+            // Setup modals
+            setupModals();
+            
+            // Setup cart interactions
+            setupCartInteractions();
+            
+            // Initialize cart display
+            updateCartDisplay();
+            
+            // Prevent default behavior for all anchor tags
+            document.querySelectorAll('a').forEach(anchor => {
+                anchor.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // In a real application, you would handle navigation here
+                    console.log('Navigation prevented for:', anchor.href);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
