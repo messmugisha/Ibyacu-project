@@ -1,105 +1,134 @@
-<!doctype html>
+<!-- project start -->
+
+
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Ibyacu Marketplace</title>
-        <link rel="stylesheet" href="design/style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    </head>
-    <body>
-        <header class="site-header">
-            <div class="brand"><a href="index.html">Ibyacu</a></div>
-            <nav class="main-nav">
-                <a href="index.html">Home</a>
-                <a href="products.html">Products</a>
-                <a href="dashboard.html">Dashboard</a>
-                <a href="#contact">Contact</a>
-            </nav>
-            <div class="header-actions">
-                <div class="lang-switch">
-                    <button data-lang="en" class="lang active">EN</button>
-                    <button data-lang="fr" class="lang">FR</button>
-                </div>
-                <button id="cartBtn" class="cart-btn">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span id="cartCount" class="cart-count">0</span>
-                </button>
-                <button id="authBtn" class="auth-btn">Login / Register</button>
-            </div>
-        </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ibyacu-Home</title>
+    <!-- CSS Stylesheet -->
+     <link rel="stylesheet" href="./design/style.css">
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="nav">
+        <a href="">Ibyacu</a>
 
-        <main>
-            <section class="hero">
-                <div class="hero-inner">
-                    <h1 data-i18n="heroTitle">Handmade arts & crafts — connect with artisans</h1>
-                    <p data-i18n="heroDesc">Buy directly from creators. Secure payments. Local delivery options.</p>
-                    <div class="hero-actions">
-                        <a href="products.html" class="btn primary" data-i18n="shopNow">Shop Now</a>
-                        <a href="dashboard.html" class="btn" data-i18n="sellNow">Sell Your Work</a>
+        <div class="nav-elements">
+            <div class="search-container">
+                <input type="text" placeholder="Shakisha..." class="search-input">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+
+            <ul>
+                <li><a href="">Ahabanza</a></li>
+                <li><a href="">Ibicuruzwa</a></li>
+                 <li>
+                    <select name="" id="">
+                        <option value="">Ibyiciro</option>
+                        <option value="tablue">Ibishushanyo</option>
+                        <option value="toys">Ibibumbano</option>
+                        <option value="toys">Imyambaro</option>
+                    </select>
+                 </li>
+                <li><a href="">Serivisi</a></li>
+                <li><a href="">Aderesi</a></li>
+            </ul>
+        </div>
+
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+</nav>
+<!--end of navbar-->
+
+<!-- Hero -->
+
+<div class="main-content">
+    <h1 class="head">Murakaza neza!</h1>
+    <p class="subhead">Ibyacu ni urubuga rw'ubucuruzi bw'ibihangano by'abahanzi nyarwanda. Turi hano kugirango tugufashe kubona ibihangano byiza kandi by'umwimerere.</p>
+
+    <div class="btn">
+        <a href="" class="btn1">Reba Ibicuruzwa</a>
+        <a href="" class="btn2">Tumenye</a>
+    </div>
+
+    <!-- main-content -->
+     <div class="products">
+        <h2>Ibicuruzwa</h2>
+     </div>
+   
+     
+     <!--contacts-->
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>Contact Us</h2>
+                    <p>Have questions or feedback? We'd love to hear from you!</p>
+
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt" style="color: var( --dark-heading);"></i>
+                        </div>
+                        <div>
+                            <h4>Address</h4>
+                            <p>Kigali,Bugesera</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone" style="color: var( --dark-heading);"></i>
+                        </div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p> <a href="tel:+250 783 161 106">+250 783 161 106</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope" style="color: var( --dark-heading);"></i>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p><a href="mailto:gicandadelly@gmail.com">gicandadelly@gmail.com</a></p>
+                        </div>
                     </div>
                 </div>
-            </section>
 
-            <section class="categories">
-                <h2 data-i18n="categories">Shop by Category</h2>
-                <div class="category-list">
-                    <button class="category" data-category="Textiles">Textiles</button>
-                    <button class="category" data-category="Ceramics">Ceramics</button>
-                    <button class="category" data-category="Jewelry">Jewelry</button>
-                    <button class="category" data-category="Woodwork">Woodwork</button>
-                </div>
-            </section>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
 
-            <section class="products" id="products">
-                <h2 data-i18n="featured">Featured Products</h2>
-                <div id="productGrid" class="product-grid"></div>
-            </section>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
 
-            <section id="contact" class="contact">
-                <h2 data-i18n="contact">Contact</h2>
-                <p>Email: <a href="mailto:info@ibyacu.example">info@ibyacu.example</a></p>
-            </section>
-        </main>
+                        <div class="form-group">
+                            <input type="text" placeholder="Subject">
+                        </div>
 
-        <aside id="cartPanel" class="cart-panel" aria-hidden="true">
-            <header class="cart-header">
-                <h3 data-i18n="yourCart">Your Cart</h3>
-                <button id="closeCart" aria-label="Close cart">✕</button>
-            </header>
-            <div id="cartItems" class="cart-items"></div>
-            <div class="cart-footer">
-                <div class="cart-total">Total: <span id="cartTotal">0.00</span> USD</div>
-                <button id="checkoutBtn" class="btn primary" data-i18n="checkout">Checkout</button>
-            </div>
-        </aside>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" required></textarea>
+                        </div>
 
-        <div id="authModal" class="modal" aria-hidden="true">
-            <div class="modal-content">
-                <button class="modal-close">✕</button>
-                <div class="auth-forms">
-                    <form id="loginForm" class="auth-form">
-                        <h3 data-i18n="login">Login</h3>
-                        <input name="email" placeholder="Email" required>
-                        <input name="password" type="password" placeholder="Password" required>
-                        <button type="submit" class="btn primary" data-i18n="loginBtn">Login</button>
+                        <button type="submit" class="btn">Send Message</button>
                     </form>
-                    <form id="registerForm" class="auth-form hidden">
-                        <h3 data-i18n="register">Register</h3>
-                        <input name="name" placeholder="Full name" required>
-                        <input name="email" placeholder="Email" required>
-                        <input name="password" type="password" placeholder="Password" required>
-                        <label><input type="checkbox" name="seller"> I'm a seller</label>
-                        <button type="submit" class="btn primary" data-i18n="registerBtn">Register</button>
-                    </form>
-                    <div class="auth-switch">
-                        <button id="showLogin" class="btn">Login</button>
-                        <button id="showRegister" class="btn">Register</button>
-                    </div>
                 </div>
             </div>
         </div>
-
-        <script src="behaviour/script.js"></script>
-    </body>
+    </section>
+</div>
+<script src="./behaviour/script.js"></script>
+</body>
 </html>
