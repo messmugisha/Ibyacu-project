@@ -1,5 +1,18 @@
+<?php
+require 'conn.php';
+
+$productsResult = $conn->query("
+    SELECT p.product_id, p.product_name, p.description, p.price, p.quantity, p.image, u.username
+    FROM pdts p
+    JOIN users u ON p.user_id = u.user_id
+    ORDER BY p.product_id DESC
+");
+
+$marketProducts = $productsResult ? $productsResult->fetch_all(MYSQLI_ASSOC) : [];
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <base target="_self">
     <meta charset="UTF-8">
@@ -29,7 +42,8 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="min-h-screen bg-light font-body">
+
+<body class="min-h-screen bg-light font-body text-dark">
     <!-- Header with Navigation -->
     <header class="bg-white shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-4">
@@ -44,20 +58,20 @@
                             <i class="fas fa-chevron-down text-xs"></i>
                         </button>
                         <div class="absolute hidden group-hover:block bg-white shadow-lg rounded-lg mt-2 w-32">
-                            <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors">Kiny</button>
-                            <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors">Eng</button>
-                            <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors">Fr</button>
+                            <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors">Ikinyarwanda</button>
+                            <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors">Icyongereza</button>
+                            <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors">Igifaransa</button>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="flex items-center space-x-4">
                     <!-- Cart Viewer -->
                     <button id="cartButton" class="relative flex items-center space-x-1 text-gray-600 hover:text-primary transition-colors">
                         <i class="fas fa-shopping-cart text-xl"></i>
                         <span class="cart-count bg-primary text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">0</span>
                     </button>
-                    
+
                     <!-- Auth Buttons -->
                     <div class="flex items-center space-x-2">
                         <button id="loginBtn" class="px-4 py-2 text-gray-600 hover:text-primary transition-colors">Injira</button>
@@ -70,7 +84,7 @@
             <nav class="flex justify-between items-center py-4">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <h1 class="text-2xl font-display font-sans font-bold text-dark">Ibyacu </h1>
+                    <h1 class="text-2xl font-display font-bold text-dark"><b>Ibyacu</b></h1>
                 </div>
 
                 <!-- Navigation Links -->
@@ -83,12 +97,15 @@
                             <i class="fas fa-chevron-down text-xs"></i>
                         </button>
                         <div class="absolute hidden group-hover:block bg-white shadow-lg rounded-lg mt-2 w-48">
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors">Ibishushanyo</a>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors">Ibibumbano</a>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors">Imyambaro</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors">Ibibumbano n’inyongeramusaruro</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors">Imyenda n’udushingwe</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors">Ibikoresho by’imbaho</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors">Imitako</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors">Ishusho n’Igishushanyo</a>
                         </div>
                     </div>
-                    <a href="#" class="nav-link text-gray-700 hover:text-primary transition-colors font-medium">Aderesi</a>
+                    <a href="#" class="nav-link text-gray-700 hover:text-primary transition-colors font-medium">Abahanzi</a>
+                    <a href="#" class="nav-link text-gray-700 hover:text-primary transition-colors font-medium">Twandikire</a>
                 </div>
 
                 <!-- Search Bar -->
@@ -112,21 +129,42 @@
         <!-- Hero Section -->
         <section class="bg-gradient-to-r from-primary to-secondary text-white py-20">
             <div class="container mx-auto px-4 text-center">
-                <h2 class="text-4xl md:text-6xl font-display font-bold mb-6">Murakaza neza!</h2>
-                <p class="text-xl mb-8 max-w-2xl mx-auto">Ibyacu ni urubuga rw'ubucuruzi bw'ibihangano by'abahanzi nyarwanda. Turi hano kugirango tugufashe kubona ibihangano byiza kandi by'umwimerere.</p>
+                <h2 class="text-4xl md:text-6xl font-display font-bold mb-6">Menya ibihangano by’umwimerere</h2>
+                <p class="text-xl mb-8 max-w-2xl mx-auto">Hura n’abahanzi b’isi yose, ugire ibicuruzwa byakozwe n’intoki byuzuye umwimerere n’urukundo.</p>
                 <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                    <button class="bg-accent text-dark px-8 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors">Gura akakanya</button>
-                    <button class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-dark transition-colors">Iyandikishe Nkumuhanzi</button>
+                    <button class="bg-accent text-dark px-8 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors">Gura Ubu</button>
+                    <button class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-dark transition-colors">Ba Umuhanzi</button>
                 </div>
             </div>
         </section>
 
+
         <!-- Featured Products Section -->
         <section class="py-16">
             <div class="container mx-auto px-4">
-                <h3 class="text-3xl font-display font-bold text-center text-dark mb-12">Featured Handmade Products</h3>
-                <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Products will be dynamically loaded here -->
+                <h3 class="text-3xl font-display font-bold text-center text-dark mb-12">Ibicuruzwa Bihari </h3>
+                
+                <div class="relative">
+               <span class="absolute top-2 left-2 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                  NEW
+               </span>
+                </div>
+                <div id="pr
+                oductsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"> <?php if (!$marketProducts): ?> <p class="col-span-1 sm:col-span-2 lg:col-span-4 text-center text-gray-500 py-12"> Nta bicuruzwa byashyizweho ubu. </p> <?php else: ?> <?php foreach ($marketProducts as $product): ?> <?php $imageSrc = !empty($product['image']) ? $product['image'] : 'https://via.placeholder.com/300x300?text=ArtisanCraft';
+                                                                                                                                                                                                                                                                                                                            $priceValue = (float) $product['price'];
+                                                                                                                                                                                                                                                                                                                            $artisanName = $product['username'] ?? 'Artisan'; ?> <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-light"> <img src="<?= htmlspecialchars($imageSrc); ?>" alt="<?= htmlspecialchars($product['product_name']); ?>" class="w-full h-48 object-cover" loading="lazy">
+                                <div class="p-4">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h4 class="font-semibold text-dark text-lg"><?= htmlspecialchars($product['product_name']); ?></h4> <span class="text-primary font-bold"> <?= number_format($priceValue, 2); ?> FRW </span>
+                                    </div>
+                                    <p class="text-gray-600 text-sm mb-2"><span class="font-bold font-2xl  " style="font-size: 17px;">Umucuruzi: </span><?= htmlspecialchars($artisanName); ?></p>
+                                    <p class="text-gray-500 text-sm mb-3 h-12 overflow-hidden text-ellipsis"> <span class="font-bold font-2xl  " style="font-size: 17px;">Ubusobanuro: </span> <?= htmlspecialchars($product['description']); ?> <br> </p>
+                                    <div class="flex space-x-2"> <button class="add-to-cart flex-1 bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors" data-id="<?= (int) $product['product_id']; ?>" data-name="<?= htmlspecialchars($product['product_name'], ENT_QUOTES); ?>" data-price="<?= $priceValue; ?>" data-image="<?= htmlspecialchars($imageSrc, ENT_QUOTES); ?>"> Shyira mu gikapu </button> <button class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors"> <i class="far fa-heart text-gray-600"></i> </button> </div>
+                                </div>
+                            </div>
+
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </section>
@@ -134,32 +172,25 @@
         <!-- Categories Section -->
         <section class="py-16 bg-white">
             <div class="container mx-auto px-4">
-                <h3 class="text-3xl font-display font-bold text-center text-dark mb-12">SHAKISHA UGENDEYE KU IBYICIRO</h3>
+                <h3 class="text-3xl font-display font-bold text-center text-dark mb-12">Sura ushingiye ku byiciro</h3>
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
-                    <div class="category-card text-center p-6 rounded-lg bg-light hover:bg-accent transition-colors cursor-pointer">
-                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-vase text-white text-2xl"></i>
+                    <?php
+                    $categories = [
+                        ['icon' => 'fa-vase', 'label' => 'Ibibumbano'],
+                        ['icon' => 'fa-tshirt', 'label' => 'Imyenda'],
+                        ['icon' => 'fa-gem', 'label' => 'Imitako'],
+                        ['icon' => 'fa-palette', 'label' => 'Ubugeni'],
+                        ['icon' => 'fa-hammer', 'label' => 'Ibikoresho by’imbaho'],
+                    ];
+                    foreach ($categories as $category):
+                    ?>
+                        <div class="category-card text-center p-6 rounded-lg bg-light hover:bg-accent transition-colors cursor-pointer">
+                            <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas <?= $category['icon']; ?> text-white text-2xl"></i>
+                            </div>
+                            <h4 class="font-semibold text-dark"><?= $category['label']; ?></h4>
                         </div>
-                        <h4 class="font-semibold text-dark">Ibibumbano</h4>
-                    </div>
-                    <div class="category-card text-center p-6 rounded-lg bg-light hover:bg-accent transition-colors cursor-pointer">
-                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-tshirt text-white text-2xl"></i>
-                        </div>
-                        <h4 class="font-semibold text-dark">Imyambaro</h4>
-                    </div>
-                    <div class="category-card text-center p-6 rounded-lg bg-light hover:bg-accent transition-colors cursor-pointer">
-                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-gem text-white text-2xl"></i>
-                        </div>
-                        <h4 class="font-semibold text-dark">Imitako</h4>
-                    </div>
-                    <div class="category-card text-center p-6 rounded-lg bg-light hover:bg-accent transition-colors cursor-pointer">
-                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-hammer text-white text-2xl"></i>
-                        </div>
-                        <h4 class="font-semibold text-dark">Ibikoresho by'ibiti</h4>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
@@ -170,41 +201,43 @@
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <h4 class="text-xl font-display font-bold mb-4">Ibyacu</h4>
-                    <p class="text-gray-300">Ibyacu ni urubuga rw'ubucuruzi bw'ibihangano by'abahanzi nyarwanda. Turi hano kugirango tugufashe kubona ibihangano byiza kandi by'umwimerere.</p>
+                    <h4 class="text-xl font-display font-bold mb-4">ArtisanCraft</h4>
+                    <p class="text-gray-300">Duhuza abahanzi n’abaguzi ku isi. Shakisha ibihangano by’umwimerere kandi uteze imbere abahanzi bigenga.</p>
                 </div>
                 <div>
-                    <h5 class="font-semibold mb-4">Links Zihuse</h5>
+                    <h5 class="font-semibold mb-4">Amasano yihuse</h5>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Ahabanza</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Aderesi</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Ibyiciro</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Ibicuruzwa</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Ibyerekeye Twebwe</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Twandikire</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Ibibazo bikunze kubazwa</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Amakuru yo kohereza</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h5 class="font-semibold mb-4">Kubahanzi</h5>
+                    <h5 class="font-semibold mb-4">Ku bahanzi</h5>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Gurisha igihangano</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Seller Dashboard</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Gurisha kuri ArtisanCraft</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Ikibaho cy’umucuruzi</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Ibiciro</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Ubufasha n’ibikoresho</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h5 class="font-semibold mb-4">Stay Connected</h5>
+                    <h5 class="font-semibold mb-4">Guma tuvugana</h5>
                     <div class="flex space-x-4 mb-4">
                         <a href="#" class="text-gray-300 hover:text-white transition-colors"><i class="fab fa-facebook text-xl"></i></a>
                         <a href="#" class="text-gray-300 hover:text-white transition-colors"><i class="fab fa-instagram text-xl"></i></a>
                         <a href="#" class="text-gray-300 hover:text-white transition-colors"><i class="fab fa-pinterest text-xl"></i></a>
                     </div>
-                    <p class="text-gray-300">Twandikire Hano</p>
+                    <p class="text-gray-300">Iyandikishe kuri buriya butumwa</p>
                     <div class="flex mt-2">
-                        <input type="email" placeholder="Imeri yawe cyangwa amazina yawe" class="px-3 py-2 bg-gray-700 text-white rounded-l-lg focus:outline-none w-full">
-                        <button class="bg-primary px-4 py-2 rounded-r-lg hover:bg-secondary transition-colors">Ohereza!</button>
+                        <input type="email" placeholder="Imeyili yawe" class="px-3 py-2 bg-gray-700 text-white rounded-l-lg focus:outline-none w-full">
+                        <button class="bg-primary px-4 py-2 rounded-r-lg hover:bg-secondary transition-colors">Iyandikishe</button>
                     </div>
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
-                <p>&copy; 2025 Ibyacu. All rights reserved.</p>
+                <p>&copy; 2025 ArtisanCraft. Uburenganzira bwose burabitswe.</p>
             </div>
         </div>
     </footer>
@@ -214,22 +247,22 @@
     <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
         <div class="bg-white rounded-lg max-w-md w-full p-6">
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-display font-bold text-dark">Login</h3>
+                <h3 class="text-2xl font-display font-bold text-dark">Injira</h3>
                 <button class="close-modal text-gray-500 hover:text-dark">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
-            <form id="loginForm">
+            <form method="post" action="logic.php">
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Imeyiri</label>
-                        <input type="email" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Amazina</label>
+                        <input type="text" required name="username" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Ijambo ry'ibanga</label>
-                        <input type="password" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                        <input type="password" required name="key" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
                     </div>
-                    <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-secondary transition-colors font-semibold">Injira</button>
+                    <button type="submit" name="login" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-secondary transition-colors font-semibold">Injira</button>
                 </div>
             </form>
             <div class="text-center mt-4">
@@ -239,91 +272,66 @@
     </div>
 
     <!-- Register Modal -->
-<div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
-    <div class="bg-white rounded-lg max-w-md w-full p-6 max-h-[80vh] overflow-y-auto">
-        <div class="flex justify-between items-center mb-6">
-            <h3 class="text-2xl font-display font-bold text-dark">Iyandikishe</h3>
-            <button class="close-modal text-gray-500 hover:text-dark">
-                <i class="fas fa-times text-xl"></i>
-            </button>
-        </div>
-        
-        <form id="registerForm" action="logic.php" method="post">
-            <div class="space-y-4">
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Amazina Yawe</label>
-                        <input type="text" required name="username"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Imeyiri</label>
-                        <input type="email" name="email"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Aho utuye</label>
-                    <input type="text" required name="location"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Telephone</label>
-                    <input type="text" required name="contacts"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Ibikwerekeyeho</label>
-                    <input type="text" required name="bio"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
-                </div>
-
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Type</label>
-                    <input type="text" required name="type"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
-                </div>
-
-
-                <div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Ijambobanga</label>
-                        <input type="text" required name="password"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
-                    </div>
-
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Emeza Ijambo Banga</label>
-                    <input type="text" required name="confirm_password"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
-                </div>
-
-                <button type="submit"
-                    class="w-full bg-primary text-white py-3 rounded-lg hover:bg-secondary transition-colors font-semibold">
-                    Create Account
+    <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg max-w-md w-full p-6 max-h-[80vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-display font-bold text-dark">Hanga konte</h3>
+                <button class="close-modal text-gray-500 hover:text-dark">
+                    <i class="fas fa-times text-xl"></i>
                 </button>
-
             </div>
-        </form>
-
-        <div class="text-center mt-4">
-            <p class="text-gray-600">
-                Ufite konti?
-                <button name="btn" class="text-primary hover:underline switch-to-login">Injira hano</button>
-            </p>
-        </div> 
+            <form action="logic.php" method="post">
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Amazina</label>
+                            <input type="text" required name="username" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Imeyili</label>
+                            <input type="email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Aho utuye</label>
+                        <input type="text" required name="location" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Telefone</label>
+                        <input type="text" required name="contacts" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Ibyerekeye wowe</label>
+                        <input type="text" required name="bio" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Ubwoko</label>
+                        <input type="text" required name="type" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                    </div>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Ijambo ry'ibanga</label>
+                            <input type="password" required name="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Emeza ijambo ry'ibanga</label>
+                            <input type="password" required name="confirm_password" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary transition-colors">
+                        </div>
+                    </div>
+                    <button type="submit" name="register" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-secondary transition-colors font-semibold">Iyandikishe</button>
+                </div>
+            </form>
+            <div class="text-center mt-4">
+                <p class="text-gray-600">Ufite konte? <button class="text-primary hover:underline switch-to-login">Injira hano</button></p>
+            </div>
+        </div>
     </div>
-</div>
 
     <!-- Cart Modal -->
     <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
         <div class="bg-white rounded-lg max-w-2xl w-full p-6">
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-display font-bold text-dark">Your Cart</h3>
+                <h3 class="text-2xl font-display font-bold text-dark">Igikapu cyawe</h3>
                 <button class="close-modal text-gray-500 hover:text-dark">
                     <i class="fas fa-times text-xl"></i>
                 </button>
@@ -333,153 +341,68 @@
             </div>
             <div class="border-t pt-4 mt-4">
                 <div class="flex justify-between items-center mb-4">
-                    <span class="text-lg font-semibold">Total:</span>
+                    <span class="text-lg font-semibold">Igiteranyo:</span>
                     <span class="text-lg font-semibold" id="cartTotal">$0.00</span>
                 </div>
-                <button class="w-full bg-primary text-white py-3 rounded-lg hover:bg-secondary transition-colors font-semibold">Proceed to Checkout</button>
+                <button class="w-full bg-primary text-white py-3 rounded-lg hover:bg-secondary transition-colors font-semibold mb-4" id="checkoutBtn">Komeza wishyure</button>
+                <form id="paymentForm" class="space-y-3 hidden">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Uburyo bwo kwishyura</label>
+                        <select name="provider" id="paymentProvider" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:border-primary" required>
+                            <option value="">-- Hitamo --</option>
+                            <option value="MTN MoMo">MTN MoMo</option>
+                            <option value="Airtel Money">Airtel Money</option>
+                            <option value="Phone Payment">Phone Payment</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Numero ya telefone</label>
+                        <input type="tel" name="phone" id="paymentPhone" pattern="[0-9]{10}" maxlength="10" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:border-primary" placeholder="07xxxxxxxx" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Amazina y’umwishyuzi</label>
+                        <input type="text" name="payer_name" id="paymentName" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:border-primary" placeholder="Amazina yawe" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Amafaranga</label>
+                        <input type="text" id="paymentAmount" class="w-full border rounded-lg px-3 py-2 bg-gray-100" readonly>
+                    </div>
+                    <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors font-semibold">Emeza kwishyura</button>
+                    <p class="text-xs text-gray-500 text-center">Uzakira ubutumwa bwa MoMo cyangwa Airtel bwo kubyemeza.</p>
+                </form>
             </div>
         </div>
     </div>
-    
+
     <script>
-        // Define data at the beginning
-        const products = [
-            {
-                "id": 1,
-                "name": "Handmade Ceramic Vase",
-                "price": 45.99,
-                "category": "Pottery",
-                "artisan": "Maria's Pottery",
-                "rating": 4.8,
-                "image": "https://picsum.photos/300/300?random=1",
-                "description": "Beautiful hand-thrown ceramic vase with unique glaze patterns."
-            },
-            {
-                "id": 2,
-                "name": "Woven Wool Scarf",
-                "price": 32.50,
-                "category": "Textiles",
-                "artisan": "Weaver's Delight",
-                "rating": 4.6,
-                "image": "https://picsum.photos/300/300?random=2",
-                "description": "Warm wool scarf handwoven using traditional techniques."
-            },
-            {
-                "id": 3,
-                "name": "Silver Pendant Necklace",
-                "price": 89.99,
-                "category": "Jewelry",
-                "artisan": "Silver Crafts",
-                "rating": 4.9,
-                "image": "https://picsum.photos/300/300?random=3",
-                "description": "Elegant sterling silver pendant with intricate detailing."
-            },
-            {
-                "id": 4,
-                "name": "Wooden Cutting Board",
-                "price": 55.00,
-                "category": "Woodwork",
-                "artisan": "Wood Artistry",
-                "rating": 4.7,
-                "image": "https://picsum.photos/300/300?random=4",
-                "description": "Handcrafted walnut cutting board with natural wood grain."
-            },
-            {
-                "id": 5,
-                "name": "Abstract Canvas Painting",
-                "price": 120.00,
-                "category": "Art",
-                "artisan": "Modern Art Studio",
-                "rating": 4.5,
-                "image": "https://picsum.photos/300/300?random=5",
-                "description": "Vibrant abstract painting on high-quality canvas."
-            },
-            {
-                "id": 6,
-                "name": "Handmade Leather Wallet",
-                "price": 42.75,
-                "category": "Leatherwork",
-                "artisan": "Leather Crafts",
-                "rating": 4.8,
-                "image": "https://picsum.photos/300/300?random=6",
-                "description": "Durable leather wallet with multiple card slots."
-            },
-            {
-                "id": 7,
-                "name": "Ceramic Coffee Mug Set",
-                "price": 38.50,
-                "category": "Pottery",
-                "artisan": "Clay Creations",
-                "rating": 4.6,
-                "image": "https://picsum.photos/300/300?random=7",
-                "description": "Set of 4 unique handcrafted ceramic coffee mugs."
-            },
-            {
-                "id": 8,
-                "name": "Hand-knitted Sweater",
-                "price": 75.00,
-                "category": "Textiles",
-                "artisan": "Knit Wonders",
-                "rating": 4.9,
-                "image": "https://picsum.photos/300/300?random=8",
-                "description": "Cozy wool sweater with traditional knitting patterns."
-            }
-        ];
-
         const cart = [];
-        let currentLanguage = "kiny";
+        let cartTotalValue = 0;
 
-        // Function to generate product cards
-        function generateProductCard(product) {
-            return `
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                    <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover" loading="lazy">
-                    <div class="p-4">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-semibold text-dark text-lg">${product.name}</h4>
-                            <span class="text-primary font-bold">$${product.price}</span>
-                        </div>
-                        <p class="text-gray-600 text-sm mb-2">by ${product.artisan}</p>
-                        <div class="flex items-center mb-3">
-                            <div class="flex text-yellow-400">
-                                ${'<i class="fas fa-star"></i>'.repeat(Math.floor(product.rating))}
-                                ${product.rating % 1 !== 0 ? '<i class="fas fa-star-half-alt"></i>' : ''}
-                            </div>
-                            <span class="text-gray-600 text-sm ml-2">${product.rating}</span>
-                        </div>
-                        <div class="flex space-x-2">
-                            <button class="add-to-cart flex-1 bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors" data-id="${product.id}">
-                                Add to Cart
-                            </button>
-                            <button class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors">
-                                <i class="far fa-heart text-gray-600"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Function to update cart display
         function updateCartDisplay() {
             const cartCount = document.querySelector('.cart-count');
             const cartItems = document.getElementById('cartItems');
             const cartTotal = document.getElementById('cartTotal');
-            
-            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-            
+
+            if (cartCount) {
+                cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            }
+
+            if (!cartItems || !cartTotal) {
+                return;
+            }
+
             if (cart.length === 0) {
-                cartItems.innerHTML = '<p class="text-center text-gray-500 py-8">Your cart is empty</p>';
+                cartItems.innerHTML = '<p class="text-center text-gray-500 py-8">Igikapu cyawe kiracyari ubusa</p>';
                 cartTotal.textContent = "$0.00";
                 return;
             }
-            
+
             cartItems.innerHTML = cart.map(item => `
                 <div class="flex items-center space-x-4 border-b pb-4">
                     <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded">
                     <div class="flex-1">
                         <h5 class="font-semibold">${item.name}</h5>
-                        <p class="text-gray-600 text-sm">$${item.price} x ${item.quantity}</p>
+                        <p class="text-gray-600 text-sm">${(item.price * item.quantity).toFixed(2)}Frw</p>
                     </div>
                     <div class="flex items-center space-x-2">
                         <button class="decrease-quantity w-8 h-8 bg-gray-100 rounded flex items-center justify-center" data-id="${item.id}">-</button>
@@ -491,12 +414,16 @@
                     </div>
                 </div>
             `).join('');
-            
+
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             cartTotal.textContent = `$${total.toFixed(2)}`;
+            cartTotalValue = total;
+            const paymentAmount = document.getElementById('paymentAmount');
+            if (paymentAmount) {
+                paymentAmount.value = `${total.toFixed(2)}FRW`;
+            }
         }
 
-        // Function to handle modal interactions
         function setupModals() {
             const modals = {
                 login: document.getElementById('loginModal'),
@@ -510,51 +437,53 @@
                 cart: document.getElementById('cartButton')
             };
 
-            const closers = document.querySelectorAll('.close-modal');
-            const switchers = {
-                toRegister: document.querySelector('.switch-to-register'),
-                toLogin: document.querySelector('.switch-to-login')
-            };
-
-            // Open modal functions
-            Object.keys(openers).forEach(modalType => {
-                openers[modalType].addEventListener('click', (e) => {
-                    e.preventDefault();
-                    Object.values(modals).forEach(modal => modal.classList.add('hidden'));
-                    modals[modalType].classList.remove('hidden');
-                    modals[modalType].classList.add('flex');
-                });
+            Object.entries(openers).forEach(([key, button]) => {
+                if (button && modals[key]) {
+                    button.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        Object.values(modals).forEach(modal => modal && modal.classList.add('hidden'));
+                        modals[key].classList.remove('hidden');
+                        modals[key].classList.add('flex');
+                    });
+                }
             });
 
-            // Close modal functions
-            closers.forEach(closer => {
+            document.querySelectorAll('.close-modal').forEach(closer => {
                 closer.addEventListener('click', () => {
                     Object.values(modals).forEach(modal => {
-                        modal.classList.add('hidden');
-                        modal.classList.remove('flex');
+                        if (modal) {
+                            modal.classList.add('hidden');
+                            modal.classList.remove('flex');
+                        }
                     });
                 });
             });
 
-            // Modal switching
-            switchers.toRegister.addEventListener('click', () => {
-                modals.login.classList.add('hidden');
-                modals.login.classList.remove('flex');
-                modals.register.classList.remove('hidden');
-                modals.register.classList.add('flex');
-            });
+            const toRegister = document.querySelector('.switch-to-register');
+            const toLogin = document.querySelector('.switch-to-login');
 
-            switchers.toLogin.addEventListener('click', () => {
-                modals.register.classList.add('hidden');
-                modals.register.classList.remove('flex');
-                modals.login.classList.remove('hidden');
-                modals.login.classList.add('flex');
-            });
+            if (toRegister && modals.login && modals.register) {
+                toRegister.addEventListener('click', () => {
+                    modals.login.classList.add('hidden');
+                    modals.login.classList.remove('flex');
+                    modals.register.classList.remove('hidden');
+                    modals.register.classList.add('flex');
+                });
+            }
 
-            // Close modal when clicking outside
+            if (toLogin && modals.login && modals.register) {
+                toLogin.addEventListener('click', () => {
+                    modals.register.classList.add('hidden');
+                    modals.register.classList.remove('flex');
+                    modals.login.classList.remove('hidden');
+                    modals.login.classList.add('flex');
+                });
+            }
+
             Object.values(modals).forEach(modal => {
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
+                if (!modal) return;
+                modal.addEventListener('click', (event) => {
+                    if (event.target === modal) {
                         modal.classList.add('hidden');
                         modal.classList.remove('flex');
                     }
@@ -562,76 +491,109 @@
             });
         }
 
-        // Function to handle cart interactions
         function setupCartInteractions() {
-            document.addEventListener('click', (e) => {
-                if (e.target.classList.contains('add-to-cart')) {
-                    const productId = parseInt(e.target.dataset.id);
-                    const product = products.find(p => p.id === productId);
-                    const existingItem = cart.find(item => item.id === productId);
-                    
-                    if (existingItem) {
-                        existingItem.quantity++;
+            document.addEventListener('click', (event) => {
+                const addButton = event.target.closest('.add-to-cart');
+                if (addButton) {
+                    event.preventDefault();
+                    const productId = parseInt(addButton.dataset.id, 10);
+                    if (Number.isNaN(productId)) {
+                        return;
+                    }
+
+                    const existing = cart.find(item => item.id === productId);
+                    if (existing) {
+                        existing.quantity += 1;
                     } else {
                         cart.push({
-                            ...product,
+                            id: productId,
+                            name: addButton.dataset.name,
+                            price: parseFloat(addButton.dataset.price || '0'),
+                            image: addButton.dataset.image || 'https://via.placeholder.com/80',
                             quantity: 1
                         });
                     }
-                    
                     updateCartDisplay();
+                    return;
                 }
-                
-                if (e.target.classList.contains('increase-quantity')) {
-                    const productId = parseInt(e.target.dataset.id);
-                    const item = cart.find(item => item.id === productId);
-                    if (item) item.quantity++;
-                    updateCartDisplay();
-                }
-                
-                if (e.target.classList.contains('decrease-quantity')) {
-                    const productId = parseInt(e.target.dataset.id);
-                    const item = cart.find(item => item.id === productId);
-                    if (item && item.quantity > 1) {
-                        item.quantity--;
-                    } else {
-                        cart.splice(cart.findIndex(item => item.id === productId), 1);
+
+                const increaseButton = event.target.closest('.increase-quantity');
+                if (increaseButton) {
+                    const productId = parseInt(increaseButton.dataset.id, 10);
+                    const item = cart.find(product => product.id === productId);
+                    if (item) {
+                        item.quantity += 1;
+
+                        updateCartDisplay();
                     }
-                    updateCartDisplay();
+                    return;
                 }
-                
-                if (e.target.classList.contains('remove-item')) {
-                    const productId = parseInt(e.target.dataset.id);
-                    cart.splice(cart.findIndex(item => item.id === productId), 1);
-                    updateCartDisplay();
+
+                const decreaseButton = event.target.closest('.decrease-quantity');
+                if (decreaseButton) {
+                    const productId = parseInt(decreaseButton.dataset.id, 10);
+                    const itemIndex = cart.findIndex(product => product.id === productId);
+                    if (itemIndex > -1) {
+                        if (cart[itemIndex].quantity > 1) {
+                            cart[itemIndex].quantity -= 1;
+                        } else {
+                            cart.splice(itemIndex, 1);
+                        }
+                        updateCartDisplay();
+                    }
+                    return;
+                }
+
+                const removeButton = event.target.closest('.remove-item');
+                if (removeButton) {
+                    const productId = parseInt(removeButton.dataset.id, 10);
+                    const itemIndex = cart.findIndex(product => product.id === productId);
+                    if (itemIndex > -1) {
+                        cart.splice(itemIndex, 1);
+                        updateCartDisplay();
+                    }
                 }
             });
         }
 
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load products
-            const productsGrid = document.getElementById('productsGrid');
-            productsGrid.innerHTML = products.map(product => generateProductCard(product)).join('');
-            
-            // Setup modals
+        document.addEventListener('DOMContentLoaded', () => {
             setupModals();
-            
-            // Setup cart interactions
             setupCartInteractions();
-            
-            // Initialize cart display
             updateCartDisplay();
-            
-            // Prevent default behavior for all anchor tags
-            document.querySelectorAll('a').forEach(anchor => {
-                anchor.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    // In a real application, you would handle navigation here
-                    console.log('Navigation prevented for:', anchor.href);
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const paymentForm = document.getElementById('paymentForm');
+            const paymentProvider = document.getElementById('paymentProvider');
+            const paymentPhone = document.getElementById('paymentPhone');
+            const paymentName = document.getElementById('paymentName');
+
+            if (checkoutBtn && paymentForm) {
+                checkoutBtn.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    if (cart.length === 0) {
+                        alert('Ongeramo ibicuruzwa mu gikapu mbere yo kwishyura.');
+                        return;
+                    }
+                    paymentForm.classList.toggle('hidden');
                 });
-            });
+            }
+
+            if (paymentForm) {
+                paymentForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    if (cart.length === 0) {
+                        alert('Igikapu cyawe kiracyari ubusa.');
+                        return;
+                    }
+                    if (!paymentProvider.value || !paymentPhone.value || !paymentName.value) {
+                        alert('Reba neza amakuru yo kwishyura.');
+                        return;
+                    }
+                    alert(`Murakoze! Twakiriye icyifuzo cyo kwishyura ukoresheje ${paymentProvider.value} kuri nimero ${paymentPhone.value} kingana na $${cartTotalValue.toFixed(2)}.`);
+                    paymentForm.classList.add('hidden');
+                });
+            }
         });
     </script>
 </body>
+
 </html>
